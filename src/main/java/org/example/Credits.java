@@ -4,65 +4,63 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+
 
 public class Credits extends JPanel {
     private JPanel panel;
     private JButton zurückButton;
     private JLabel title;
     private JLabel text;
-    private Image backgroundImage;
+    private JLabel text1;
+    private ImageIcon image;
 
-    public Credits(JFrame jFrame){
-        //backgroundImage = new ImageIcon("src/main/resources/WhatsApp Image 2024-12-15 at 03.06.14.jpeg").getImage();
-        //backgroundImage = new ImageIcon("src/main/resources/WhatsApp Image 2024-12-16 at 03.35.04.jpeg").getImage();
-        //backgroundImage = new ImageIcon("src/main/resources/WhatsApp Image 2024-12-16 at 03.43.01.jpeg").getImage();
-        backgroundImage = new ImageIcon("src/main/resources/WhatsApp Image 2024-12-16 at 03.43.01 (1).jpeg").getImage();
+    public Credits(JFrame frame){
+        frame.setTitle("Credits");
+        panel.setPreferredSize(frame.getSize());
+        try {
+            image = new ImageIcon("src/main/resources/IconsByAndreaFryer_GameUI_Chunky_Back-512.png");
 
-        add(panel);
-        zurückButton.addActionListener(new ActionListener() {
+            zurückButton.addComponentListener(new java.awt.event.ComponentAdapter() {
+                @Override
+                public void componentResized(java.awt.event.ComponentEvent e) {
+                    int buttonWidth = 90;
+                    int buttonHeight = 70;
+
+                    // Bild auf Button-Größe skalieren
+                    Image scaledImage = image.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
+                    zurückButton.setIcon(new ImageIcon(scaledImage)); // Skalierte Version setzen
+                }
+            });
+
+            zurückButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Menu menu = new Menu(frame);
+                    frame.setContentPane(menu);
+                    frame.revalidate();
+                    frame.repaint();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Skalierung nur bei Fenstergrößenänderung
+        frame.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                Menu menu = new Menu(jFrame);
-                jFrame.setContentPane(menu);
-                jFrame.revalidate();
-                jFrame.repaint();
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+
+                // Wenn sich die Fenstergröße geändert hat, führe die Skalierung durch
+                ScalingHelper.scaleComponent(frame.getSize(), Credits.this);
+
             }
         });
-        /**zurückButton.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                adjustSizes(jFrame.getWidth(), jFrame.getHeight());
-            }
-        });**/
-    }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Bild zeichnen
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
+
+        add(panel);
+
     }
 
-    /**private void adjustSizes(int width, int height) {
-        int fontSize = Math.max(10, width / 30);
-        Font font = new Font("Arial", Font.PLAIN, fontSize);
 
-        zurückButton.setFont(font);
-        title.setFont(font);
-        Text.setFont(font);
-
-
-        int buttonHeight = Math.max(30, height / 15);
-        for (Component component : panel2.getComponents()) {
-            component.setPreferredSize(new Dimension(width, buttonHeight));
-        }
-        panel2.revalidate();
-        panel2.repaint();
-    }**/
 
 
 }
