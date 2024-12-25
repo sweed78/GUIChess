@@ -25,8 +25,8 @@ public class Menu extends JPanel {
         RoundedButton.setupButtonUI(playButton, panel1);
 
         image = new ImageIcon("src/main/resources/Credits.png");
-        image1 = new ImageIcon("src/main/resources/icons8-user-manual-100.png");
-        image2 = new ImageIcon("src/main/resources/user_switch-512.png");
+        image1 = new ImageIcon("src/main/resources/user_manual.png");
+        image2 = new ImageIcon("src/main/resources/switch_user.png");
         image3 = new ImageIcon("src/main/resources/ELO.png");
 
         instructionButton.addComponentListener(new java.awt.event.ComponentAdapter() {

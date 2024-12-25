@@ -18,7 +18,7 @@ public class Credits extends JPanel {
         frame.setTitle("Credits");
         panel.setPreferredSize(frame.getSize());
         try {
-            image = new ImageIcon("src/main/resources/IconsByAndreaFryer_GameUI_Chunky_Back-512.png");
+            image = new ImageIcon("src/main/resources/back.png");
 
             backButton.addComponentListener(new java.awt.event.ComponentAdapter() {
                 @Override
