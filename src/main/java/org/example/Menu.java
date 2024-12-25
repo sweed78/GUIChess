@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 
 public class Menu extends JPanel {
     private JPanel panel1;
-    private JButton spielenButton;
-    private JButton ELOZahlButton;
-    private JButton anleitungButton;
-    private JButton nutzerWechselnButton;
+    private JButton playButton;
+    private JButton ELOButton;
+    private JButton instructionButton;
+    private JButton switchUserButton;
     private JButton creditsButton;
     private JLabel menu;
     private ImageIcon image;
@@ -22,79 +22,78 @@ public class Menu extends JPanel {
     public Menu(JFrame frame) {
         frame.setTitle("Menü");
         panel1.setPreferredSize(frame.getSize());
-        ButtonUIHelper.setupButtonUI(spielenButton, panel1);
+        RoundedButton.setupButtonUI(playButton, panel1);
 
         image = new ImageIcon("src/main/resources/Credits.png");
         image1 = new ImageIcon("src/main/resources/icons8-user-manual-100.png");
         image2 = new ImageIcon("src/main/resources/user_switch-512.png");
         image3 = new ImageIcon("src/main/resources/ELO.png");
 
-        anleitungButton.addComponentListener(new java.awt.event.ComponentAdapter() {
+        instructionButton.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                int buttonWidth =  100; //creditsButton.getWidth();
-                int buttonHeight =  100; //creditsButton.getHeight();
+                int buttonWidth =  100;
+                int buttonHeight =  100;
 
-                // Bild auf Button-Größe skalieren
                 Image scaledImage = image1.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
-                anleitungButton.setIcon(new ImageIcon(scaledImage)); // Skalierte Version setzen
+                instructionButton.setIcon(new ImageIcon(scaledImage)); // Skalierte Version setzen
             }
         });
 
-        ELOZahlButton.addComponentListener(new java.awt.event.ComponentAdapter() {
+        ELOButton.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                int buttonWidth =  100; //creditsButton.getWidth();
-                int buttonHeight =  100; //creditsButton.getHeight();
+                int buttonWidth =  100;
+                int buttonHeight =  100;
 
-                // Bild auf Button-Größe skalieren
                 Image scaledImage = image3.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
-                ELOZahlButton.setIcon(new ImageIcon(scaledImage)); // Skalierte Version setzen
+                ELOButton.setIcon(new ImageIcon(scaledImage));
             }
         });
 
         creditsButton.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                int buttonWidth =  100; //creditsButton.getWidth();
-                int buttonHeight =  100; //creditsButton.getHeight();
+                int buttonWidth =  100;
+                int buttonHeight =  100;
 
-                // Bild auf Button-Größe skalieren
                 Image scaledImage = image.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
-                creditsButton.setIcon(new ImageIcon(scaledImage)); // Skalierte Version setzen
+                creditsButton.setIcon(new ImageIcon(scaledImage));
             }
         });
 
-        nutzerWechselnButton.addComponentListener(new java.awt.event.ComponentAdapter() {
+        switchUserButton.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                int buttonWidth =  100; //creditsButton.getWidth();
-                int buttonHeight =  90; //creditsButton.getHeight();
+                int buttonWidth =  100;
+                int buttonHeight =  90;
 
-                // Bild auf Button-Größe skalieren
                 Image scaledImage = image2.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
-                nutzerWechselnButton.setIcon(new ImageIcon(scaledImage)); // Skalierte Version setzen
+                switchUserButton.setIcon(new ImageIcon(scaledImage));
             }
         });
 
         add(panel1);
 
-        spielenButton.addActionListener(new ActionListener() {
+        playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        ELOZahlButton.addActionListener(new ActionListener() {
+        ELOButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        nutzerWechselnButton.addActionListener(new ActionListener() {
+        switchUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login l = new Login(frame);
+                frame.setContentPane(l);
+                frame.revalidate();
+                frame.repaint();
             }
         });
         creditsButton.addActionListener(new ActionListener() {
@@ -106,7 +105,7 @@ public class Menu extends JPanel {
                 frame.repaint();
             }
         });
-        anleitungButton.addActionListener(new ActionListener() {
+        instructionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

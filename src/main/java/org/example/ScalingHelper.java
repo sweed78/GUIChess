@@ -5,36 +5,26 @@ import java.awt.*;
 
 public class ScalingHelper {
 
-    private static double originalWidth = 1920.0; // Vollbildgröße für das Skalieren
-    private static double originalHeight = 1080.0;
+    private static double originalWidth = ((Toolkit.getDefaultToolkit()).getScreenSize()).getWidth();
+    private static double originalHeight = ((Toolkit.getDefaultToolkit()).getScreenSize()).getHeight();
 
-    // Setze die Originalgröße (kann angepasst werden, wenn das Fenster im Vollbildmodus startet)
-    public static void setOriginalSize(double width, double height) {
-        originalWidth = width;
-        originalHeight = height;
-    }
 
-    // Skalierung der Schriftgrößen und Komponenten im Panel
     public static void scaleComponent(Dimension newSize, JPanel panel) {
         int frameWidth = newSize.width;
         int frameHeight = newSize.height;
 
-        // Berechnung des Skalierungsfaktors
         double widthScale = frameWidth / originalWidth;
         double heightScale = frameHeight / originalHeight;
-        double scale = Math.min(widthScale, heightScale);  // Der kleinere Skalierungsfaktor wird verwendet
+        double scale = Math.min(widthScale, heightScale);
 
-        // Alle Komponenten im Panel skalieren
         for (Component component : panel.getComponents()) {
             if (component != null) {
-                // Skalierung der Schriftgröße (für AbstractButton und JLabel)
                 if (component instanceof AbstractButton || component instanceof JLabel) {
                     Font originalFont = component.getFont();
-                    float newFontSize = (float) (originalFont.getSize() * scale);  // Schriftgröße berechnen
-                    component.setFont(originalFont.deriveFont(newFontSize));  // Schriftgröße anwenden
+                    float newFontSize = (float) (originalFont.getSize() * scale);
+                    component.setFont(originalFont.deriveFont(newFontSize));
                 }
 
-                // Skalierung der Größe für Buttons
                 if (component instanceof JButton) {
                     JButton button = (JButton) component;
                     Dimension preferredSize = button.getPreferredSize();
@@ -44,7 +34,6 @@ public class ScalingHelper {
                     ));
                 }
 
-                // Skalierung für Labels
                 if (component instanceof JLabel) {
                     JLabel label = (JLabel) component;
                     Dimension preferredSize = label.getPreferredSize();
@@ -56,7 +45,6 @@ public class ScalingHelper {
             }
         }
 
-        // Panel neu validieren und repainten, um die Änderungen anzuwenden
         panel.revalidate();
         panel.repaint();
     }

@@ -6,10 +6,6 @@ import java.awt.*;
 public class Main extends JFrame {
 
     public static void main(String[] args){
-        /**String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        for (String s : fonts) {
-            System.out.println(s);
-        }**/
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
