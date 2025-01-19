@@ -22,6 +22,9 @@ public class Main extends JFrame {
 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
+        //ScalingHelper.applyResizeListener(frame);
+
+
 
     }
 }

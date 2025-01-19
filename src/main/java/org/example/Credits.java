@@ -17,6 +17,8 @@ public class Credits extends JPanel {
     public Credits(JFrame frame){
         frame.setTitle("Credits");
         panel.setPreferredSize(frame.getSize());
+        ImageButton.setupImageButton(backButton, this, "Zurück zum Menü");
+
         try {
             image = new ImageIcon("src/main/resources/back.png");
 
@@ -43,15 +45,6 @@ public class Credits extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        frame.addComponentListener(new java.awt.event.ComponentAdapter() {
-            @Override
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-
-                ScalingHelper.scaleComponent(frame.getSize(), Credits.this);
-
-            }
-        });
 
         add(panel);
 

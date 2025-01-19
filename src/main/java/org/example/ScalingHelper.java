@@ -2,50 +2,47 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class ScalingHelper {
 
-    private static double originalWidth = ((Toolkit.getDefaultToolkit()).getScreenSize()).getWidth();
-    private static double originalHeight = ((Toolkit.getDefaultToolkit()).getScreenSize()).getHeight();
+    public static void applyResizeListener(JFrame frame) {
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                resizeComponents(frame.getContentPane(), frame.getWidth(), frame.getHeight());
+            }
+        });
+    }
 
-
-    public static void scaleComponent(Dimension newSize, JPanel panel) {
-        int frameWidth = newSize.width;
-        int frameHeight = newSize.height;
-
-        double widthScale = frameWidth / originalWidth;
-        double heightScale = frameHeight / originalHeight;
-        double scale = Math.min(widthScale, heightScale);
-
-        for (Component component : panel.getComponents()) {
-            if (component != null) {
-                if (component instanceof AbstractButton || component instanceof JLabel) {
-                    Font originalFont = component.getFont();
-                    float newFontSize = (float) (originalFont.getSize() * scale);
-                    component.setFont(originalFont.deriveFont(newFontSize));
-                }
-
-                if (component instanceof JButton) {
-                    JButton button = (JButton) component;
-                    Dimension preferredSize = button.getPreferredSize();
-                    button.setPreferredSize(new Dimension(
-                            (int) (preferredSize.width * scale),
-                            (int) (preferredSize.height * scale)
-                    ));
-                }
-
-                if (component instanceof JLabel) {
-                    JLabel label = (JLabel) component;
-                    Dimension preferredSize = label.getPreferredSize();
-                    label.setPreferredSize(new Dimension(
-                            (int) (preferredSize.width * scale),
-                            (int) (preferredSize.height * scale)
-                    ));
-                }
+    public static void resizeComponents(Component component, int frameWidth, int frameHeight) {
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                resizeComponents(child, frameWidth, frameHeight);
             }
         }
 
-        panel.revalidate();
-        panel.repaint();
+        if (component instanceof JButton) {
+            JButton button = (JButton) component;
+            Dimension newSize = new Dimension(frameWidth / 4, frameHeight / 10);
+            button.setPreferredSize(newSize);
+            button.setFont(new Font("Arial Black", Font.PLAIN, frameWidth / 50));
+
+        } else if (component instanceof JPanel) {
+            JPanel panel = (JPanel) component;
+            panel.setPreferredSize(new Dimension(frameWidth, frameHeight));
+            panel.revalidate();
+            panel.repaint();
+
+
+        } else if (component instanceof JLabel) {
+            JLabel label = (JLabel) component;
+            label.setFont(new Font("Arial Black", Font.BOLD, frameWidth / 40));
+        } else if (component instanceof JTextField || component instanceof JPasswordField) {
+            JTextField textField = (JTextField) component;
+            textField.setFont(new Font("Arial Black", Font.PLAIN, frameWidth / 50));
+        }
     }
+
 }

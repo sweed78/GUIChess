@@ -6,17 +6,17 @@ import java.awt.*;
 
 public class Login extends JPanel {
     public Login(JFrame frame) {
-        frame.setTitle("Login");
+        frame.setTitle("Anmelden");
         this.setBackground(new Color(44, 44, 44));
         this.setLayout(new GridBagLayout());
 
         this.setPreferredSize(frame.getSize());
 
-        JPanel roundedPanel = new RoundedPanel(new Color(255, 255, 255, 50), 30);
+        JPanel roundedPanel = new RoundedPanel(new Color(255, 255, 255, 20), 30);
         roundedPanel.setLayout(new BoxLayout(roundedPanel, BoxLayout.Y_AXIS));
         roundedPanel.setBorder(new EmptyBorder(40, 80, 40, 80));
 
-        JLabel loginLabel = new JLabel("Login");
+        JLabel loginLabel = new JLabel("Anmelden");
         loginLabel.setFont(new Font("Arial BLACK", Font.BOLD, 78));
         loginLabel.setForeground(Color.WHITE);
         loginLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

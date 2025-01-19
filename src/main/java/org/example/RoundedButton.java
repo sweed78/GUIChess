@@ -14,6 +14,8 @@ public class RoundedButton
         button.setContentAreaFilled(false);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
+        button.setOpaque(false);
+
 
         button.setUI(new BasicButtonUI() {
             @Override
@@ -26,7 +28,7 @@ public class RoundedButton
                 int height = c.getHeight();
                 int arc = 65;
 
-                Color backgroundColor = panel.getBackground();
+                Color backgroundColor = button.getBackground();
                 g2d.setColor(backgroundColor);
                 g2d.fillRoundRect(0, 0, width, height, arc, arc);
 
@@ -49,28 +51,31 @@ public class RoundedButton
         });
 
         button.addMouseListener(new MouseAdapter() {
-            private Color originalBackground = button.getBackground();
-            private Color background = new Color(100, 100, 100);
+            private Color originalBackground = panel.getBackground();
+            private Color background = new Color(67, 69, 74);
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                button.setBackground(background);
+                button.setBackground(new Color(48,50,52));
                 button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                button.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 button.setBackground(originalBackground);
+                button.repaint();
             }
 
-            @Override
             public void mousePressed(MouseEvent e) {
-                button.setBackground(background.darker());
+                button.setBackground(background);
+                button.repaint();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 button.setBackground(background);
+                button.repaint();
             }
 
         });
